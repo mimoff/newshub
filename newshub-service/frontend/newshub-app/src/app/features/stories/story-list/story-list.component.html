@@ -1,0 +1,72 @@
+@if (isLoading()) {
+  <div class="state">
+    <mat-progress-spinner mode="indeterminate" diameter="48" />
+    <p>Поиск историй…</p>
+  </div>
+} @else if (error()) {
+  <mat-card class="state state--error" appearance="outlined">
+    <mat-icon color="warn">error_outline</mat-icon>
+    <p>Не удалось загрузить истории. Попробуйте ещё раз.</p>
+  </mat-card>
+} @else if (stories().length === 0) {
+  <mat-card class="state state--empty" appearance="outlined">
+    <mat-icon>search_off</mat-icon>
+    <p>Ничего не найдено. Измените параметры поиска.</p>
+  </mat-card>
+} @else {
+  <div class="story-list">
+    @for (story of stories(); track story.id) {
+      <mat-card class="story-card" appearance="outlined">
+        <mat-card-header>
+          <mat-card-title>
+            <a
+              class="story-title"
+              [href]="story.url"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {{ story.title }}
+            </a>
+          </mat-card-title>
+
+          <mat-card-subtitle class="story-meta">
+            <span class="story-source">{{ story.mediaSourceName }}</span>
+            <mat-chip-set aria-label="Категория">
+              <mat-chip>{{ story.categoryName }}</mat-chip>
+            </mat-chip-set>
+            <span class="story-date">
+              <mat-icon>schedule</mat-icon>
+              {{ story.publicationTime | date: 'dd.MM.yyyy HH:mm' }}
+            </span>
+          </mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+          <p class="story-description">{{ story.description }}</p>
+        </mat-card-content>
+
+        <mat-card-actions align="end">
+          <a
+            mat-button
+            color="primary"
+            [href]="story.url"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <mat-icon>open_in_new</mat-icon>
+            Открыть
+          </a>
+        </mat-card-actions>
+      </mat-card>
+    }
+  </div>
+
+  <mat-paginator
+    [length]="totalElements()"
+    [pageSize]="pageSize()"
+    [pageIndex]="pageIndex()"
+    [pageSizeOptions]="[10, 20, 50, 100]"
+    [showFirstLastButtons]="true"
+    (page)="onPage($event)"
+  />
+}

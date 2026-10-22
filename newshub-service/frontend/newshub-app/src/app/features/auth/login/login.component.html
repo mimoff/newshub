@@ -1,0 +1,63 @@
+<!-- features/auth/login/login.component.html -->
+<mat-card class="auth-card">
+  <mat-card-header>
+    <mat-card-title>Вход в систему</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form (submit)="onSubmit($event)" class="auth-form">
+      <!-- Username -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Имя пользователя</mat-label>
+        <input matInput [formField]="loginForm.username" autocomplete="username" />
+        <mat-icon matPrefix>person</mat-icon>
+
+        @if (loginForm.username().touched() && loginForm.username().invalid()) {
+          <mat-error>{{ loginForm.username().errors()[0].message }}</mat-error>
+        }
+      </mat-form-field>
+
+      <!-- Password -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Пароль</mat-label>
+        <input
+          matInput
+          [type]="hidePassword() ? 'password' : 'text'"
+          [formField]="loginForm.password"
+          autocomplete="current-password"
+        />
+        <mat-icon matPrefix>lock</mat-icon>
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="togglePasswordVisibility($event)"
+          [attr.aria-label]="'Скрыть пароль'"
+        >
+          <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+
+        @if (loginForm.password().touched() && loginForm.password().invalid()) {
+          <mat-error>{{ loginForm.password().errors()[0].message }}</mat-error>
+        }
+      </mat-form-field>
+
+      <!-- Submit -->
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        class="full-width"
+        [disabled]="loginForm().invalid()"
+      >
+        Войти
+      </button>
+    </form>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <p class="auth-link">
+      Нет аккаунта? <a routerLink="/register">Зарегистрироваться</a>
+    </p>
+  </mat-card-actions>
+</mat-card>
