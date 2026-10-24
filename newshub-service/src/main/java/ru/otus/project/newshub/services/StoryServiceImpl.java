@@ -20,7 +20,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class StoryServiceImpl implements StoryService {
+
     private final StoryRepository storyRepository;
+
     private final MediaSourceRepository mediaSourceRepository;
 
     @Override
@@ -45,12 +47,12 @@ public class StoryServiceImpl implements StoryService {
         var storyList = storyRepository.findByUrl(storyCreateDto.getUrl());
         Story story;
 
-        if(!storyList.isEmpty()) {
+        if (!storyList.isEmpty()) {
             story = storyList.get(0);
-        }
-        else {
+        } else {
             var mediaSource = mediaSourceRepository.findById(storyCreateDto.getMediaSourceId())
-                    .orElseThrow(() -> new EntityNotFoundException("MediaSource with id %d not found".formatted(storyCreateDto.getMediaSourceId())));
+                    .orElseThrow(() -> new EntityNotFoundException("MediaSource with id %d not found"
+                            .formatted(storyCreateDto.getMediaSourceId())));
 
             var newStory = new Story(0, storyCreateDto.getTitle(), storyCreateDto.getDescription(),
                     storyCreateDto.getPublicationTime(), storyCreateDto.getUrl(), mediaSource);
@@ -62,11 +64,12 @@ public class StoryServiceImpl implements StoryService {
     @Override
     @Transactional
     public void upload(StoryCreateDto storyCreateDto) {
-        if(!storyRepository.existsByUrl(storyCreateDto.getUrl())) {
+        if (!storyRepository.existsByUrl(storyCreateDto.getUrl())) {
             //mediaSourceRepository.getReferenceById(storyCreateDto.getMediaSourceId());
 
             var mediaSource = mediaSourceRepository.findById(storyCreateDto.getMediaSourceId())
-                    .orElseThrow(() -> new EntityNotFoundException("MediaSource with id %d not found".formatted(storyCreateDto.getMediaSourceId())));
+                    .orElseThrow(() -> new EntityNotFoundException("MediaSource with id %d not found"
+                            .formatted(storyCreateDto.getMediaSourceId())));
 
             var newStory = new Story(0, storyCreateDto.getTitle(), storyCreateDto.getDescription(),
                     storyCreateDto.getPublicationTime(), storyCreateDto.getUrl(), mediaSource);

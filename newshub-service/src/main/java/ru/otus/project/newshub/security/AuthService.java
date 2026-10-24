@@ -17,8 +17,11 @@ import ru.otus.project.newshub.repositories.UserRepository;
 public class AuthService {
 
     private final AuthenticationManager authenticationManager;
+
     private final UserRepository userRepository;
+
     private final JwtService jwtService;
+
     private final PasswordEncoder passwordEncoder;
 
     public LoginResponse login(LoginRequest request) {
@@ -42,7 +45,7 @@ public class AuthService {
         if (userRepository.findByUsername(request.getUsername()).isPresent()) {
             throw new IllegalArgumentException("Пользователь с таким логином уже существует");
         }
-        User user = new User( 0L,
+        User user = new User(0L,
                 request.getUsername(),
                 passwordEncoder.encode(request.getPassword()),
                 "ROLE_USER"

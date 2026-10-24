@@ -11,7 +11,7 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
-public class ScraperServiceImpl implements ScraperService{
+public class ScraperServiceImpl implements ScraperService {
     private final Map<String, SourceProcessor> sourceProcessorMap;
 
     private final StorySender storySender;
@@ -23,8 +23,9 @@ public class ScraperServiceImpl implements ScraperService{
     @Override
     public void process(ScraperTaskDto scraperTaskDTO) {
         SourceProcessor sourceProcessor = sourceProcessorMap.get(scraperTaskDTO.getType());
-        if(sourceProcessor == null)
+        if (sourceProcessor == null) {
             throw new IllegalArgumentException("Unknown SourceProcessor type: " + scraperTaskDTO.getType());
+        }
 
         taskTimestamp = Instant.now();
 

@@ -32,6 +32,6 @@ app:
     secret: "change-me-in-production-this-must-be-a-very-long-secret-key-at-least-256-bits"
     expiration: 86400000  # 24 часа
 
-logging:
-  level:
-    org.springframework: debug
+#logging:
+#  level:
+#    org.springframework: debug

@@ -19,21 +19,21 @@ import java.util.List;
 @Component("rss")
 @RequiredArgsConstructor
 @Slf4j
-public class SourceProcessorRssImpl implements SourceProcessor{
+public class SourceProcessorRssImpl implements SourceProcessor {
     @Override
     public List<StoryCreateDto> process(ScraperTaskDto scraperTaskDto) {
-        log.info("process source: "+scraperTaskDto);
+        log.info("process source: " + scraperTaskDto);
         try {
             URL feedSource = new URL(scraperTaskDto.getUrl());
             SyndFeedInput input = new SyndFeedInput();
             SyndFeed feed = input.build(new XmlReader(feedSource));
             var stories = feed.getEntries().stream()
                     .map(SourceProcessorRssImpl::convertToStory)
-                    .peek( story -> story.setMediaSourceId(scraperTaskDto.getMediaSourceId()))
+                    .peek(story -> story.setMediaSourceId(scraperTaskDto.getMediaSourceId()))
                     .toList();
 
             return stories;
-        } catch ( IOException | FeedException e) {
+        } catch (IOException | FeedException e) {
             throw new RuntimeException(e);
         }
     }

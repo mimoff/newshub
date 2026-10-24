@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StoryCreateDto {
+
     @NotBlank
     private String title;
 

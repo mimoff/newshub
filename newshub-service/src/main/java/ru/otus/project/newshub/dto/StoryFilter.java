@@ -11,9 +11,14 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StoryFilter {
-    List<Long> categoryIds;
-    List<Long> mediaSourceIds;
-    LocalDate dateFrom;
-    LocalDate dateTo;
-    String keyword;
+
+    private List<Long> categoryIds;
+
+    private List<Long> mediaSourceIds;
+
+    private LocalDate dateFrom;
+
+    private LocalDate dateTo;
+
+    private String keyword;
 }

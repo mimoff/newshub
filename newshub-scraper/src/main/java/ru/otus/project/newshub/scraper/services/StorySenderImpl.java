@@ -7,13 +7,15 @@ import org.springframework.stereotype.Service;
 import ru.otus.project.newshub.queue.dto.StoryCreateDto;
 import tools.jackson.databind.ObjectMapper;
 
+import static ru.otus.project.newshub.queue.config.RabbitConfig.STORY_ROUTING_KEY;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class StorySenderImpl implements StorySender{
-    private static final String STORY_ROUTING_KEY = "story.queue";
+public class StorySenderImpl implements StorySender {
 
     private final RabbitTemplate rabbitTemplate;
+
     private final ObjectMapper objectMapper;
 
     @Override

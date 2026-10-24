@@ -7,13 +7,14 @@ import org.springframework.stereotype.Service;
 import ru.otus.project.newshub.queue.dto.ScraperTaskDto;
 import tools.jackson.databind.ObjectMapper;
 
+import static ru.otus.project.newshub.queue.config.RabbitConfig.SCRAPER_TASK_ROUTING_KEY;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class ScraperTaskListener {
-    private static final String SCRAPER_TASK_ROUTING_KEY = "scraper-task.queue";
-
     private final ObjectMapper objectMapper;
+
     private final ScraperService scraperService;
 
     @RabbitListener(queues = SCRAPER_TASK_ROUTING_KEY)

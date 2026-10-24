@@ -2,21 +2,14 @@ package ru.otus.project.newshub.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import ru.otus.project.newshub.models.Category;
-
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -39,10 +32,4 @@ public class User {
 
     @Column(nullable = false)
     private String role;
-
-/*    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_categories",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private List<Category> categories;*/
 }

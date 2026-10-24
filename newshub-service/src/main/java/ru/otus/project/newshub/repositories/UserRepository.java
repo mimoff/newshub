@@ -1,6 +1,5 @@
 package ru.otus.project.newshub.repositories;
 
-import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.jpa.repository.JpaRepository;
 import ru.otus.project.newshub.models.User;
 

@@ -16,8 +16,9 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class MediaSourceServiceImpl implements MediaSourceService{
+public class MediaSourceServiceImpl implements MediaSourceService {
     private final MediaSourceRepository mediaSourceRepository;
+
     private final CategoryRepository categoryRepository;
 
     @Override

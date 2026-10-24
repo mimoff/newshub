@@ -24,8 +24,11 @@ import ru.otus.project.newshub.security.JwtService;
 public class AuthController {
 
     private final UserRepository userRepository;
+
     private final PasswordEncoder passwordEncoder;
+
     private final JwtService jwtService;
+
     private final AuthenticationManager authenticationManager;
 
     @PostMapping("/register")

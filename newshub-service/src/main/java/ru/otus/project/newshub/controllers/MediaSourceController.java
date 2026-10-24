@@ -21,17 +21,4 @@ public class MediaSourceController {
     public List<MediaSourceDto> findAll() {
         return mediaSourceService.findAll();
     }
-
-/*    @GetMapping
-    public List<MediaSourceResponse> getAll() { ... }
-
-    @PostMapping
-    public MediaSourceResponse create(@RequestBody @Valid MediaSourceRequest request) { ... }
-
-    @PutMapping("/{id}")
-    public MediaSourceResponse update(@PathVariable Long id,
-                                      @RequestBody @Valid MediaSourceRequest request) { ... }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) { ... }*/
 }

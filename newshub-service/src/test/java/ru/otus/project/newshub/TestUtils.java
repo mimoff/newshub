@@ -1,11 +1,11 @@
 package ru.otus.project.newshub;
 
+import ru.otus.project.newshub.dto.CategoryDto;
+import ru.otus.project.newshub.dto.MediaSourceDto;
 import ru.otus.project.newshub.models.Category;
 import ru.otus.project.newshub.models.MediaSource;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 final public class TestUtils {
     public static List<Category> getDbCategories() {
@@ -21,37 +21,13 @@ final public class TestUtils {
         );
     }
 
-/*    public static List<Author> getDbAuthors() {
-        return IntStream.range(1, 4).boxed()
-                .map(id -> new Author(id, "Author_" + id))
-                .toList();
+    private static MediaSourceDto toMediaSourceDTO(MediaSource mediaSource) {
+        return new MediaSourceDto(mediaSource.getId(), mediaSource.getName(), mediaSource.getType(),
+                mediaSource.getUrl(),
+                new CategoryDto(mediaSource.getCategory().getId(), mediaSource.getCategory().getName()));
     }
 
-    private static List<Book> getDbBooks(List<Author> dbAuthors, List<Category> dbCategories) {
-        return IntStream.range(1, 4).boxed()
-                .map(id -> new Book(id,
-                        "BookTitle_" + id,
-                        dbAuthors.get(id - 1),
-                        dbCategories.subList((id - 1) * 2, (id - 1) * 2 + 2)
-                ))
-                .toList();
+    public static List<MediaSourceDto> getDbMediaSourcesDto() {
+        return getDbMediaSources().stream().map(TestUtils::toMediaSourceDTO).toList();
     }
-
-    public static List<Book> getDbBooks() {
-        var dbAuthors = getDbAuthors();
-        var dbCategories = getDbCategories();
-        return getDbBooks(dbAuthors, dbCategories);
-    }
-
-    public static List<BookDto> getDbBooksDto() {
-        var dbAuthors = getDbAuthors();
-        var dbCategories = getDbCategories();
-        return getDbBooks(dbAuthors, dbCategories).stream().map(BookDto::fromDomainObject).collect(Collectors.toList());
-    }
-
-    public static List<Comment> getDbComments() {
-        return IntStream.range(1, 7).boxed()
-                .map(id -> new Comment(id, "Comment_" + id, getDbBooks().get((id-1)/2)))
-                .toList();
-    }*/
 }
