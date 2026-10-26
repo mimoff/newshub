@@ -9,12 +9,6 @@ import ru.otus.project.newshub.dto.StoryDto;
 import java.util.List;
 
 public interface StoryService {
-    List<StoryDto> findAll();
-
-    List<StoryDto> findByKeyword(String keyword);
-
-    StoryDto insert(StoryCreateDto storyCreateDto);
-
     void upload(StoryCreateDto storyCreateDto);
 
     Page<StoryDto> searchByFilter(StoryFilter filter, Pageable pageable);

@@ -22,7 +22,7 @@ import java.util.List;
 public class SourceProcessorRssImpl implements SourceProcessor {
     @Override
     public List<StoryCreateDto> process(ScraperTaskDto scraperTaskDto) {
-        log.info("process source: " + scraperTaskDto);
+        log.info("process source RSS: " + scraperTaskDto);
         try {
             URL feedSource = new URL(scraperTaskDto.getUrl());
             SyndFeedInput input = new SyndFeedInput();

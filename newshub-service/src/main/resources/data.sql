@@ -12,7 +12,3 @@ insert into users(username, password, role)
 values ('admin', 'admin', 'ROLE_ADMIN'),
        ('user', 'user', 'ROLE_USER');
 
-insert into user_categories(user_id, category_id)
-values (1, 1),   (1, 2),
-       (2, 1),   (2, 2);
-

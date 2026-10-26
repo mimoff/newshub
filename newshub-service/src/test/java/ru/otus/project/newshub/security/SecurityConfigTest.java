@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @DisplayName("MediaSourceController должен")
-@WebMvcTest(MediaSourceController.class)
+//@WebMvcTest(MediaSourceController.class)
 //@Import(SecurityConfig.class)
 public class SecurityConfigTest {
 

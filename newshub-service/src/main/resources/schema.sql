@@ -21,7 +21,8 @@ create table stories (
     pub_time timestamp,
     url varchar(max),
     mediasource_id bigint references mediasources (id) on delete cascade,
-    primary key (id)
+    primary key (id),
+    UNIQUE (url)
 );
 
 create table users (
@@ -32,9 +33,37 @@ create table users (
     primary key (id)
 );
 
-create table user_categories (
-    user_id bigint references users(id) on delete cascade,
-    category_id bigint references categories(id) on delete cascade,
-    primary key (user_id, category_id)
-);
+/*
+table categories {
+  id bigint [primary key]
+  name varchar [not null]
+}
 
+table mediasources {
+  id bigint [primary key]
+  name varchar [not null]
+  type varchar [not null]
+  url varchar [not null, unique]
+  category_id bigint [not null]
+}
+
+Ref: categories.id <? mediasources.category_id
+
+table stories {
+  id bigint [primary key]
+  title varchar [not null]
+  description varchar
+  pub_time timestamp [not null]
+  url varchar [not null]
+  mediasource_id bigint [not null]
+}
+
+Ref: mediasources.id <? stories.mediasource_id
+
+table users {
+  id bigint [primary key]
+  username varchar
+  password varchar
+  role varchar
+}
+ */

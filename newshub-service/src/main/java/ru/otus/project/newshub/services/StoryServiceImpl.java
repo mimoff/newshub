@@ -15,8 +15,6 @@ import ru.otus.project.newshub.repositories.MediaSourceRepository;
 import ru.otus.project.newshub.repositories.StoryRepository;
 import ru.otus.project.newshub.repositories.StorySpecifications;
 
-import java.util.List;
-
 @RequiredArgsConstructor
 @Service
 public class StoryServiceImpl implements StoryService {
@@ -26,47 +24,9 @@ public class StoryServiceImpl implements StoryService {
     private final MediaSourceRepository mediaSourceRepository;
 
     @Override
-    @Transactional(readOnly = true)
-    public List<StoryDto> findAll() {
-        return storyRepository.findAll().stream()
-                .map(StoryServiceImpl::toStoryDto)
-                .toList();
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<StoryDto> findByKeyword(String keyword) {
-        return storyRepository.findAll().stream()
-                .map(StoryServiceImpl::toStoryDto)
-                .toList();
-    }
-
-    @Override
-    @Transactional
-    public StoryDto insert(StoryCreateDto storyCreateDto) {
-        var storyList = storyRepository.findByUrl(storyCreateDto.getUrl());
-        Story story;
-
-        if (!storyList.isEmpty()) {
-            story = storyList.get(0);
-        } else {
-            var mediaSource = mediaSourceRepository.findById(storyCreateDto.getMediaSourceId())
-                    .orElseThrow(() -> new EntityNotFoundException("MediaSource with id %d not found"
-                            .formatted(storyCreateDto.getMediaSourceId())));
-
-            var newStory = new Story(0, storyCreateDto.getTitle(), storyCreateDto.getDescription(),
-                    storyCreateDto.getPublicationTime(), storyCreateDto.getUrl(), mediaSource);
-            story = storyRepository.save(newStory);
-        }
-        return toStoryDto(story);
-    }
-
-    @Override
     @Transactional
     public void upload(StoryCreateDto storyCreateDto) {
         if (!storyRepository.existsByUrl(storyCreateDto.getUrl())) {
-            //mediaSourceRepository.getReferenceById(storyCreateDto.getMediaSourceId());
-
             var mediaSource = mediaSourceRepository.findById(storyCreateDto.getMediaSourceId())
                     .orElseThrow(() -> new EntityNotFoundException("MediaSource with id %d not found"
                             .formatted(storyCreateDto.getMediaSourceId())));
@@ -77,8 +37,8 @@ public class StoryServiceImpl implements StoryService {
         }
     }
 
-    @Transactional(readOnly = true)
     @Override
+    @Transactional(readOnly = true)
     public Page<StoryDto> searchByFilter(StoryFilter filter, Pageable pageable) {
         Specification<Story> spec = Specification
                 .where(StorySpecifications.byCategories(filter.getCategoryIds()))
