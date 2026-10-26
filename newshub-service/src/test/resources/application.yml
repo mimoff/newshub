@@ -1,0 +1,60 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=LEGACY
+  sql:
+    init:
+      mode: always
+      data-locations:  classpath:data.sql
+      schema-locations:  classpath:schema.sql
+
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+
+    show-sql: true
+    properties:
+      hibernate:
+      #format_sql: true
+
+management:
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: 'prometheus,health,info,metrics,logfile'
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      enabled: true
+      show-details: always
+    info:
+      enabled: true
+    metrics:
+      enabled: true
+    logfile:
+      enabled: true
+  health:
+    livenessState:
+      enabled: true
+    readinessState:
+      enabled: true
+    defaults:
+      enabled: true
+    diskspace:
+      enabled: true
+    rabbit:
+      enabled: true
+  info:
+    defaults:
+      enabled: true
+    env:
+      enabled: true
+
+logging:
+  file:
+    name: /log/app.log

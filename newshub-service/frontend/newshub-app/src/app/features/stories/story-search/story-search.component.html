@@ -1,0 +1,81 @@
+<mat-card class="filter-card" appearance="outlined">
+  <mat-card-content>
+    <form [formRoot]="filterForm" (submit)="onSearch($event)" class="filter-form">
+      <mat-form-field appearance="outline">
+        <mat-label>Категории</mat-label>
+        <mat-select
+          multiple
+          [value]="filterModel().categoryIds"
+          (selectionChange)="onCategoriesChange($event.value)"
+        >
+          @for (category of categories(); track category.id) {
+            <mat-option [value]="category.id">{{ category.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Источники</mat-label>
+        <mat-select
+          multiple
+          [value]="filterModel().mediaSourceIds"
+          (selectionChange)="onSourcesChange($event.value)"
+        >
+          @for (source of sources(); track source.id) {
+            <mat-option [value]="source.id">{{ source.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>С даты</mat-label>
+        <input
+          matInput
+          [matDatepicker]="pickerFrom"
+          [value]="filterModel().dateFrom"
+          (dateChange)="onDateFromChange($event.value)"
+        />
+        <mat-datepicker-toggle matSuffix [for]="pickerFrom" />
+        <mat-datepicker #pickerFrom />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>По дату</mat-label>
+        <input
+          matInput
+          [matDatepicker]="pickerTo"
+          [value]="filterModel().dateTo"
+          (dateChange)="onDateToChange($event.value)"
+        />
+        <mat-datepicker-toggle matSuffix [for]="pickerTo" />
+        <mat-datepicker #pickerTo />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Ключевое слово</mat-label>
+        <mat-icon matPrefix>search</mat-icon>
+        <input
+          matInput
+          [value]="filterModel().keyword"
+          (input)="onKeywordChange($event)"
+          placeholder="Поиск по заголовку и описанию"
+        />
+      </mat-form-field>
+
+      <div class="actions">
+        <button mat-raised-button matButton="outlined" color="primary" type="submit">Найти</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<!-- 👇 Дочерний компонент: список историй -->
+<app-story-list
+  [stories]="stories()"
+  [totalElements]="totalElements()"
+  [pageSize]="filterModel().size"
+  [pageIndex]="filterModel().page"
+  [isLoading]="storiesResource.isLoading()"
+  [error]="storiesResource.error()"
+  (pageChange)="onPageChange($event)"
+/>

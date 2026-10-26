@@ -1,0 +1,83 @@
+<!-- features/auth/register/register.component.html -->
+<mat-card class="auth-card">
+  <mat-card-header>
+    <mat-card-title>Регистрация</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form (submit)="onSubmit($event)" class="auth-form">
+      <!-- Username -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Имя пользователя</mat-label>
+        <input matInput [formField]="registerForm.username" autocomplete="username" />
+        <mat-icon matPrefix>person</mat-icon>
+        @if (registerForm.username().touched() && registerForm.username().invalid()) {
+          <mat-error>{{ registerForm.username().errors()[0].message }}</mat-error>
+        }
+      </mat-form-field>
+
+      <!-- Password -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Пароль</mat-label>
+        <input
+          matInput
+          [type]="hidePassword() ? 'password' : 'text'"
+          [formField]="registerForm.password"
+          autocomplete="new-password"
+        />
+        <mat-icon matPrefix>lock</mat-icon>
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="togglePasswordVisibility('password', $event)"
+        >
+          <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        @if (registerForm.password().touched() && registerForm.password().invalid()) {
+          <mat-error>{{ registerForm.password().errors()[0].message }}</mat-error>
+        }
+      </mat-form-field>
+
+      <!-- Confirm Password -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Подтвердите пароль</mat-label>
+        <input
+          matInput
+          [type]="hideConfirm() ? 'password' : 'text'"
+          [formField]="registerForm.confirmPassword"
+          autocomplete="new-password"
+        />
+        <mat-icon matPrefix>lock_reset</mat-icon>
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="togglePasswordVisibility('confirm', $event)"
+        >
+          <mat-icon>{{ hideConfirm() ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        @if (registerForm.confirmPassword().touched() && registerForm.confirmPassword().invalid()) {
+          <mat-error>{{ registerForm.confirmPassword().errors()[0].message }}</mat-error>
+        }
+      </mat-form-field>
+
+      <!-- Submit -->
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        class="full-width"
+        [disabled]="registerForm().invalid()"
+      >
+        Зарегистрироваться
+      </button>
+    </form>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <p class="auth-link">
+      Уже есть аккаунт? <a routerLink="/login">Войти</a>
+    </p>
+  </mat-card-actions>
+</mat-card>
